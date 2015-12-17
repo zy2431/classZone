@@ -1,0 +1,67 @@
+<?php
+	$htmlData = '';
+	if (!empty($class['classinfo']['introduce'])) {
+		if (get_magic_quotes_gpc()) {
+			$htmlData = stripslashes($class['classinfo']['introduce']);
+		} else {
+			$htmlData = $class['classinfo']['introduce'];
+		}
+	}
+?>
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>KindEditor PHP</title>
+	<link rel="stylesheet" href="__EDIT__/themes/default/default.css" />
+	<link rel="stylesheet" href="__EDIT__/plugins/code/prettify.css" />
+	<script charset="utf-8" src="__EDIT__/kindeditor.js"></script>
+	<script charset="utf-8" src="__EDIT__/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="__EDIT__/plugins/code/prettify.js"></script>
+	<script charset="utf-8" src="__JQUERY__"></script>
+	<script>
+		KindEditor.ready(function(K) {
+			var editor1 = K.create('textarea[name="introduce"]', {
+				cssPath : '__EDIT__/plugins/code/prettify.css',
+				uploadJson : '__EDIT__/php/upload_json.php',
+				fileManagerJson : '__EDIT__/php/file_manager_json.php',
+				allowFileManager : false,
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						
+						K('form[name=classIntro]')[0].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						K('form[name=classIntro]')[0].submit();
+					});
+				}
+			});
+			prettyPrint();
+			$("form[name=classIntro]").submit( function () {
+				$.post("{:U('ClassInfo/save')}",$("form[name=classIntro]").serialize(),
+				   function(data){
+				    if(data){
+				    	alert("更新成功");
+				    	window.top.location.reload(); 
+				    }else{
+				    	alert("更新失败");
+				    }
+				});
+				return false;
+			});
+			
+		});
+	</script>
+</head>
+<body>
+	<form name="classIntro" method="post" action="{:U('ClassInfo/save')}">
+		<textarea name="introduce" style="width:780px;height:435px;visibility:hidden;">{$class.classinfo.introduce|htmlspecialchars_decode}</textarea>
+		<br />
+		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
+	</form>
+</body>
+</html>
+

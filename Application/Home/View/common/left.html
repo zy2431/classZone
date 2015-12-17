@@ -1,0 +1,13 @@
+<div id="sidebar" class="left">
+    	<div class="sidebar_box">
+            <h3>{$left_title}<a href="{:U('post/index')}" style="display:inline-block;text-align:right;width:160px;">更多</a></h3>  
+            <div class="content"> 
+                <ul class="sidebar_list">
+             	 <volist name="leftData" id="vo">
+                    <li><a href="{:U('post/info')}?id={$vo.id}">{$vo.title}</a></li>
+                </volist>
+                </ul>
+            </div>
+        </div>
+        
+    </div>

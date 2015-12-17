@@ -1,0 +1,51 @@
+﻿<link rel="stylesheet" href="__CSS__/common.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #EEF2FB;
+}
+-->
+</style>
+<script>
+  function confirm_check(){
+    var returnVal = window.confirm("您确定要删除本条数据吗?", "标题"); 
+    if(returnVal) { 
+      return true;
+    }else{
+      return false;
+    }
+  }
+</script>
+<body>
+          <div id="man_zone">
+            <table width="99%" border="0" align="center"  cellpadding="4" cellspacing="1" class="table_style">
+              <tr>
+                <td width="10%" class="left_title_1" style="text-align:left"><span class="left-title">编号</span></td>
+               <td width="15%" class="left_title_1" style="text-align:left"><span class="left-title">姓名</span></td>
+                <td width="20%" class="left_title_1" style="text-align:left"><span class="left-title">所属班级</span></td>
+                 <td width="30%" class="left_title_1" style="text-align:left"><span class="left-title">创建时间</span></td>
+                 <td width="25%" class="left_title_1" style="text-align:left"><span class="left-title">操作</span></td>
+              </tr>
+                <!-- 循环遍历查询出的数据 -->
+ <volist name ="data" id ='vo'>
+                <tr>
+                  <td>{$vo.id}</td>
+                  <td><a href="{:U('info')}?id={$vo.id}"> {$vo.username}</a></td>
+                  <td>{$vo.class.classname}</td>
+                  <td>{$vo.create_time}</td>
+                  <td><a href="{:U('update')}?id={$vo.id}">修改</a> <a href="{:U('delete')}?id={$vo.id}" onclick="return confirm_check();">删除</a></td>
+                </tr>
+</volist>
+
+               <tr>
+                <td align="left" colspan="5" valign="top" class="fenye">
+                    {$page}
+                 </td> 
+              </tr>
+          </table>
+</div>
+</body>

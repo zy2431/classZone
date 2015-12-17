@@ -1,0 +1,22 @@
+.addAblumForm{
+	width: 380px;
+	height: auto;
+	background-color: green;
+	overflow: hidden;
+	position:relative;
+}
+.addAblumIframe{
+	width: 380px;
+	height: 300px;
+	background-color: green;
+	overflow:hidden;
+}
+.addAblumCloseBtn{
+	width: 12px;
+	height: 12px;
+	cursor:pointer;
+	position:absolute;
+	top:5px;
+	left:365px;
+	background-image:url('../../images/210T941L-44.png');
+}

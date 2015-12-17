@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>班级相册</title>
+<meta name="keywords"
+	content="free template, floral shop, ecommerce, online shopping, store" />
+<meta name="description"
+	content="Floral Shop, Products, free website template for ecommerce shopping websites." />
+<link href="__CSS__/templatemo_style.css" rel="stylesheet"
+	type="text/css" />
+<link rel="stylesheet" href="__CSS__/orman.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="__CSS__/nivo-slider.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="__CSS__/ddsmoothmenu.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/photo/photo.css" />
+<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/ddsmoothmenu.js">
+	
+	/***********************************************
+	 * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+	 * This notice MUST stay intact for legal use
+	 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+	 ***********************************************/
+</script>
+
+<script language="javascript" src="__JS__/CFUpload/update.js"></script>
+<script type="text/javascript" src="__JS__/ppoup_layer.js" />
+<script type="text/javascript">
+	ddsmoothmenu.init({
+		mainmenuid : "templatemo_menu", //menu DIV id
+		orientation : 'h', //Horizontal or vertical menu: Set to "h" or "v"
+		classname : 'ddsmoothmenu', //class added to menu's outer DIV
+		//customtheme: ["#1c5a80", "#18374a"],
+		contentsource : "markup" //"markup" or ["container_id", "path_to_menu_file"]
+	})
+
+	function clearText(field) {
+		if (field.defaultValue == field.value)
+			field.value = '';
+		else if (field.value == '')
+			field.value = field.defaultValue;
+	}
+</script>
+<script type="text/javascript">
+	function sendPhotoName(data) {
+		var data = eval("(" + data + ")")
+		$.ajax({
+			type : "get",
+			url : "{:U('photo/add')}",
+			data : "filename=" + data.file_url + "&album_id={$album.id}&name="
+					+ data.name,
+		});
+	}
+	
+	$(function() {
+		//添加pop弹出层
+		var t9 = new PopupLayer({
+			trigger : "#addPhoto",
+			popupBlk : "#addPhotoForm",
+			closeBtn : "#addPhotoCloseBtn",
+			useOverlay : true,
+			useFx : true,
+			offsets : {
+				x : 0,
+				y : -41
+			}
+		});
+		t9.doEffects = function(way) {
+			if (way == "open") {
+				this.popupLayer
+						.css({
+							opacity : 0.3
+						})
+						.show(
+								400,
+								function() {
+									this.popupLayer
+											.animate(
+													{
+														left : ($(document)
+																.width() - this.popupLayer
+																.width()) / 2,
+														top : (document.documentElement.clientHeight - this.popupLayer
+																.height())
+																/ 2
+																+ $(document)
+																		.scrollTop(),
+														opacity : 0.8
+													}, 1000, function() {
+														this.popupLayer.css(
+																"opacity", 1)
+													}.binding(this));
+								}.binding(this));
+			} else {
+				this.popupLayer.animate({
+					left : this.trigger.offset().left,
+					top : this.trigger.offset().top,
+					opacity : 0.1
+				}, {
+					duration : 500,
+					complete : function() {
+						this.popupLayer.css("opacity", 1);
+						this.popupLayer.hide()
+					}.binding(this)
+				});
+			}
+		}
+	});
+</script>
+<script type="text/javascript" src="__JS__/jquery.contextmenu.r2.js" ></script>
+<script>
+$(function(){
+	//设置右键
+	$('.edit').contextMenu('mymenu',{
+		bindings:{
+			'setAlbumShow': function(t){
+				var $photo_id=$(t).attr("photo_id");
+				var $ablum_id=$(t).attr("ablum_id");
+				$.ajax({
+					type : "get",
+					url : "{:U('album/setShowPhoto')}",
+					data : "photo_id=" + $photo_id + "&album_id="+ $ablum_id,
+					success:function(aa){
+						if(aa=="true"){
+							alert("设置成功");
+						}else{
+							alert("设置失败，可能该图片本身就是相册封面，也可能~~~~");
+						}
+					}
+				});
+			},
+			'setIndexShow': function(t){
+				var photo_id=$(t).attr("photo_id");
+				var positon = prompt('请输入图片播放顺序（1-5）',"1");
+				if(positon){positon = parseInt(positon);}else{return false};
+				if(positon<1 || positon>5){
+					alert("数据错误");
+				}else{
+					var description = prompt('请输入展示描述，将显示到首页轮播图的下方',"");
+					if(description){
+						$.ajax({
+							type : "get",
+							url : "{:U('IndexPhoto/setIndexPhoto')}",
+							data : "photo_id=" + photo_id + "&positon="+ positon+ "&description="+ description,
+							success:function(aa){
+								if(aa=="true"){
+									alert("设置成功");
+								}else{
+									alert("设置失败%>_<%");
+								}
+							}
+						});
+					}
+				}
+				
+				
+			},
+		}
+	});
+});
+</script>
+</head>
+<body>
+<include file="common/top_nav" />
+	<!--<div id="showImg">
+	<iframe src="gallerydetail.html" style="width:900px;height:600px;"></iframe>
+</div>-->
+	<div id="templatemo_wrapper_sp">
+		<div id="templatemo_header_wsp">
+			<div id="templatemo_header" class="header_subpage">
+				<div id="site_title">
+					<a href="http://www.cssmoban.com/" title="模板之家">模板之家</a>
+				</div>
+				<div id="templatemo_menu" class="ddsmoothmenu">
+					<include file="common/nav" />
+					<include file="common/search" />
+					<br style="clear: left" />
+				</div>
+				<a href="#" title="免费图片素材 from cn.hiresimage.com"
+					class="site_repeat" target="_blank"><img
+					src="__IMG__/top_repeat.png" alt="免费图片素材" /></a>
+				<!-- end of templatemo_menu -->
+
+			</div>
+			<!-- END of header -->
+		</div>
+		<!-- END of header wrapper -->
+		<div id="templatemo_main_wrapper">
+			<div id="templatemo_main">
+				<include file="common/left" />
+
+				<div id="content" class="right">
+					<h2>{$album.name}</h2>
+					<p class="info">{$album.introduce}</p>
+					<p>
+						<a href="{:U('user/info')}?id={$album.create_user_id}">{$album.create_user}</a>于<b>{$album.create_time|date="Y年m月d日",###}</b>创建
+					</p>
+					<volist name='photos' id='photo'>
+
+					<div class="product_box">
+						<div class="imgbox edit" photo_id="{$photo.id}" ablum_id="{$album.id}">
+							<a href="{:U('gallerydetails')}" title="{$photo.name}"><img
+								src="{$photo.filename}" alt="{$photo.name}" /></a>
+						</div>
+						<p class="product_price">{$photo.name|substr=0,12}</p>
+					</div>
+					</volist>
+
+					<!-- 上传相册 -->
+					<div class="product_box" id="addPhoto">
+						<div class="imgbox">
+							<img src="__IMG__/plus.png" alt="" style="width: 50px" />
+						</div>
+						<p class="product_price" style="color: yellow">点击上传新照片</p>
+					</div>
+					<div id="addPhotoForm" class="addPhotoForm">
+						<div id="addPhotoCloseBtn" class='popupLayer addPhotoCloseBtn'></div>
+						<!-- 图片上传flash控件 -->
+						<div id="pictureUpload"
+							style="width: 640px; height: 310px; background: #fbfbfb; border: solid 1px #e1e1e1; margin: 20px auto;"
+							oncontextmenu="window.event.returnValue=0">
+							<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+								codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0"
+								width="640" height="300" id="update" align="middle">
+								<param name="allowFullScreen" value="false" />
+								<param name="allowScriptAccess" value="always" />
+								<param name="movie" value="update1.swf" />
+								<param name="quality" value="high" />
+								<param name="wmode" value="transparent" />
+								<param name="bgcolor" value="#ffffff" />
+								<embed src="__JS__/CFUpload/update1.swf" quality="high"
+									bgcolor="#ffffff" wmode="transparent" width="640" height="300"
+									name="update" align="middle" allowScriptAccess="always"
+									allowFullScreen="false" type="application/x-shockwave-flash"
+									pluginspage="http://www.macromedia.com/go/getflashplayer" />
+							</object>
+						</div>
+						<div id="show"
+							style="width: 640px; line-height: 18px; font-size: 12px; text-align: left; margin: 0 auto;">
+							<h4
+								style="line-height: 30px; font-size: 14px; border-bottom: solid 1px #eee;">状态:</h4>
+						</div>
+					</div>
+
+					<div id="photoFormDiv">
+						<form action="{:U('photo/add')}" method="post" id="photoForm">
+
+						</form>
+					</div>
+
+				</div>
+				<div class="cleaner"></div>
+			</div>
+			<!-- END of main -->
+		</div>
+		<!-- END of main wrapper -->
+
+		<div id="templatemo_footer_wrapper">
+			<div id="templatemo_footer">
+				<div class="footer_left">
+					<a href="#"><img src="__IMG__/1311260370_paypal-straight.png"
+						alt="Paypal" /></a> <a href="#"><img
+						src="__IMG__/1311260374_mastercard-straight.png" alt="Master" /></a>
+					<a href="#"><img src="__IMG__/1311260374_visa-straight.png"
+						alt="Visa" /></a>
+				</div>
+				<div class="footer_right">
+					<p>
+						<a href="index.php">Home</a> | <a href="products.html">Products</a>
+						| <a href="about.html">About</a> | <a href="faqs.html">FAQs</a> |
+						<a href="checkout.html">Checkout</a> | <a href="contact.html">Contact</a>
+					</p>
+					<p>
+						Copyright © 2084 <a href="#">Company Name</a> | Collect from <a
+							href="http://www.cssmoban.com/" title="模板之家">模板之家</a>
+					</p>
+				</div>
+				<div class="cleaner"></div>
+			</div>
+			<!-- END of footer -->
+		</div>
+		<!-- END of footer wrapper -->
+	</div>
+	<!-- 右键菜单 -->
+	<div id="mymenu">
+		<ul>
+			<li id="setAlbumShow">设置为相册封面</li>
+			<li id="setIndexShow">设置为首页轮播图</li>
+		</ul>
+	</div>
+</body>
+<script type='text/javascript' src='__JS__/logging.js'></script>
+</html>

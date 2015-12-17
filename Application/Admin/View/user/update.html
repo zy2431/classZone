@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="__CSS__/common.css" type="text/css" />
+<script src="__JQUERY__" type="text/javascript" charset="utf-8" ></script>
+<script type="text/javascript" charset="utf-8">
+	$(function(){
+		/*学院信息添加到下拉菜单中*/
+		var academyData = eval('('+'{$academyJson}'+')');
+		//console.info(academyData);
+		$.each(academyData,function(i,academy){
+			
+			var option = $("<option>").val(academy.id).text(academy.name);
+			if(academy.id=="{$data.class.academy_id}"){
+				//alert("{$data.class.academy_id}");
+				option.attr("selected",true); 
+				setClassData("{$data.class.academy_id}");
+			}
+			$("#academySelect").append(option); 
+		});
+		
+		/*学院下拉改变是动态获取班级信息*/
+		$("#academySelect").change(function(){
+			setClassData($("#academySelect").val());
+		});
+		
+		/*角色的radio选择*/
+		$("input[name='role']").each(function(){
+			//alert($(this).val());
+			if("{$data.role}"=="学生"){
+				$(this).attr("checked","checked");
+			}else if("{$data.role}"=="老师"){
+				$(this).attr("checked","checked");
+			}
+		});
+		
+	});
+	
+	/*动态设置班级信息方法*/
+	function setClassData(academyId){
+		$("#classSelect").empty();
+		$("#classSelect").append($("<option>").text("---请选择---"));
+		
+		//alert(academyId);
+		//获取对应学院班级信息
+				$.ajax({
+				   type: "POST",
+				   url: "{:U('Admin/academy/getClassByAcademyId')}",
+				   data: "Academy_id="+academyId,
+				   success: function(data){
+				   		//遍历学院对应的班级信息
+					   	$.each(data,function(i,clazz){
+					   		var classOption = $("<option>").val(clazz.id).text(clazz.classname);
+					   		if(clazz.id=="{$data.class.id}"){classOption.attr("selected",true); }
+					   		$("#classSelect").append(classOption); 
+					     	//alert( "Data Saved: " + data);
+					   	});
+				   		
+				   }
+				});
+	}
+</script>
+<title>管理员列表</title>
+</head>
+
+<body>
+<div id="man_zone">
+  <table width="99%" border="0" align="center"  cellpadding="3" cellspacing="1" class="table_style">
+	<form action="{:U('user/doupdate')}" method="post">
+		<input type="hidden" name="id" value="{$data.id}" />
+		<tr>
+		  <td width="25%" class="left_title_1"><span class="left-title">用户名</span></td>
+		  <td><input type="text" name="username" value="{$data.username}"></td>
+		</tr>
+		<tr>
+		  <td width="25%" class="left_title_1"><span class="left-title">所属院系</span></td>
+		  <td><select name="academy_id" id = "academySelect">
+		  	<option>---请选择---</option>
+		  </select></td>
+		</tr>
+		<tr>
+		  <td width="25%" class="left_title_1"><span class="left-title">所属班级</span></td>
+		  <td><select name="class_id" id = "classSelect">
+		  	<option>---请选择---</option>
+		  </select></td>
+		</tr>
+		<tr>
+		  <td width="25%" class="left_title_1"><span class="left-title">密码</span></td>
+		  <td><input type="password" name="password" /></td>
+		</tr>
+		<tr>
+		  <td width="25%" class="left_title_1"><span class="left-title">再次输入密码</span></td>
+		  <td><input type="password" name="repassword" /></td>
+		</tr>
+		
+		<tr>
+		  <td width="25%" class="left_title_1"><span class="left-title">选择角色{$data.role}</span></td>
+		  <td>学生：<input type="radio" name="role" value="0" >
+		  	教师：<input type="radio" name="role" value="3"  >	
+		  </td>
+		</tr>
+		<tr>
+		  <td width="25%" class="left_title_1"></td>
+		  <td><input type="submit" value="提交"></td>
+		</tr>
+	</form>
+  </table>
+</div>
+</body>
+</html>

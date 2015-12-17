@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>留言板</title>
+<meta name="keywords"
+	content="free template, contact, floral shop, ecommerce, online store" />
+<meta name="description"
+	content="Floral Shop, Contact Form, Location Maps, Addresses, free template for ecommerce websites." />
+<link href="__CSS__/templatemo_style.css" rel="stylesheet"
+	type="text/css" />
+
+<link rel="stylesheet" href="__CSS__/orman.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="__CSS__/nivo-slider.css" type="text/css"
+	media="screen" />
+
+<link rel="stylesheet" type="text/css" href="__CSS__/ddsmoothmenu.css" />
+<link rel="stylesheet" type="text/css"
+	href="__CSS__/message/message.css" />
+<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/ddsmoothmenu.js">
+	/***********************************************
+	 * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+	 * This notice MUST stay intact for legal use
+	 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+	 ***********************************************/
+</script>
+
+<script type="text/javascript">
+	ddsmoothmenu.init({
+		mainmenuid : "templatemo_menu", //menu DIV id
+		orientation : 'h', //Horizontal or vertical menu: Set to "h" or "v"
+		classname : 'ddsmoothmenu', //class added to menu's outer DIV
+		//customtheme: ["#1c5a80", "#18374a"],
+		contentsource : "markup" //"markup" or ["container_id", "path_to_menu_file"]
+	})
+
+	function clearText(field) {
+		if (field.defaultValue == field.value)
+			field.value = '';
+		else if (field.value == '')
+			field.value = field.defaultValue;
+	}
+</script>
+<link rel="stylesheet" href="__EDIT__/themes/default/default.css" />
+		<link rel="stylesheet" href="__EDIT__/plugins/code/prettify.css" />
+		<script charset="utf-8" src="__EDIT__/kindeditor.js"></script>
+		<script charset="utf-8" src="__EDIT__/lang/zh_CN.js"></script>
+		<script charset="utf-8" src="__EDIT__/plugins/code/prettify.js"></script>
+<script type="text/javascript">
+	$(function(){
+		KindEditor.ready(function(K) {
+			var editor1 = K.create('textarea[id="messageTA"]', {
+				cssPath : '__EDIT__/plugins/code/prettify.css',
+				uploadJson : '__EDIT__/php/upload_json.php',
+				fileManagerJson : '__EDIT__/php/file_manager_json.php',
+				allowFileManager : false,
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						
+						K('form[name=context]')[0].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						K('form[name=classIntro]')[0].submit();
+					});
+				}
+			});
+			prettyPrint();
+		});
+		
+	});
+	
+	function showForm(id){
+		$("#form_"+id).toggle();
+	}
+	/*
+		var data = [
+				{faceImg:"__IMG__/gallery/01_l.jpg",username:"赵波",context:"窗外的春光明媚刺眼，沉静的校园里不知道掩埋了多少单纯的真心爱慕，只可惜他们不明白那时一切尚早，辗转岁月里再多细腻情思也会最终化灰流逝，暗恋可以支撑起少年时代的所有梦想，却不能抵挡成人以后的微薄现实。",child:[{faceImg:"__IMG__/gallery/01_l.jpg",username:"赵波",context:"窗外的春光明媚刺眼，沉静的校园里不知道掩埋了多少单纯的真心爱慕，只可惜他们不明白那时一切尚早，辗转岁月里再多细腻情思也会最终化灰流逝，暗恋可以支撑起少年时代的所有梦想，却不能抵挡成人以后的微薄现实。"}]},
+				{faceImg:"__IMG__/gallery/01_l.jpg",username:"赵波",context:"窗外的春光明媚刺眼，沉静的校园里不知道掩埋了多少单纯的真心爱慕，只可惜他们不明白那时一切尚早，辗转岁月里再多细腻情思也会最终化灰流逝，暗恋可以支撑起少年时代的所有梦想，却不能抵挡成人以后的微薄现实。"}
+		];
+		console.info(setMsg($("#msgList"),data));
+		*/
+	//js方式添加留言板数据  不用
+	function setMsg(obj,data){
+		var $ul = $("<ul>");
+		$.each(data,function(n,v){
+			var $li = $("<li>");
+				var $left_div = $("<div>").addClass("li_left");
+					var $headImg = $("<img>").attr({src:v.faceImg,title:'11'}).addClass('headImg');
+				$left_div.append($headImg);
+			$li.append($left_div);
+			var $right_div = $("<div>").addClass("li_right");
+				var $p1 = $("<p>").html(v.username+" &nbsp;&nbsp;"+data.create_time+"<a href='' >&nbsp;&nbsp;回复</a>");
+				var $p2 = $("<p>").html(v.context);
+				var $p3 = $("<p>");
+				if(v.child){
+					setMsg($p3,v.child);
+				}
+				$right_div.append($p1).append($p2).append($p3);
+			$li.append($right_div);
+			$ul.append($li);
+		});
+		obj.append($ul);
+	}
+</script>
+</head>
+<body>
+<include file="common/top_nav"/>
+	<div id="templatemo_wrapper_sp">
+		<div id="templatemo_header_wsp">
+			<div id="templatemo_header" class="header_subpage">
+				<div id="site_title">
+					<a href="http://www.cssmoban.com/" title="模板之家">模板之家</a>
+				</div>
+				<div id="templatemo_menu" class="ddsmoothmenu">
+					<include file="common/nav" />
+					<include file="common/search" />
+					<br style="clear: left" />
+				</div>
+				<a href="#" title="#/" class="site_repeat" target="_blank"><img
+					src="__IMG__/top_repeat.png" title="#/" /></a>
+				<!-- end of templatemo_menu -->
+
+			</div>
+			<!-- END of header -->
+		</div>
+		<!-- END of header wrapper -->
+		<div id="templatemo_main_wrapper">
+			<div id="templatemo_main">
+				<include file="common/left" />
+
+				<div id="content" class="right">
+					<h2>留言板({$totalRows})</h2>
+					<p>方茴说，一个人的快乐，快乐有可能是假的，一群人的快乐，快乐已经分不出真假。他们尽情挥霍着自己的青春，恨不得就此燃烧殆尽，那架势就像末日前的狂欢。
+					</p>
+					<div class="cleaner h20"></div>
+					<ul></ul>
+					<div id="msgList">
+					<!-- 一层循环 遍历顶层回复 -->
+					<volist name="data" id="vo">
+						<ul >
+							<li ><div class="li_left">
+									<img src="{$vo.user.userinfo.faceImg}" title="{$vo.user.username}" class="headImg" />
+								</div>
+								<div class="li_right" id="msgul_{$vo.id}">
+									<p>{$vo.user.username} 第{$vo.floor_num}楼</p>
+									<p>{$vo.context|htmlspecialchars_decode}
+									</p>
+									<p>
+										{$vo.create_time|date="Y年m月d日",###} <a href="javascript:showForm({$vo.id});" >&nbsp;&nbsp;回复</a>&nbsp;&nbsp;
+										<a href="{:U('message/del')}?id={$vo.id}" onclick="return confirm('你确定要删除吗？这将会同时删除这聊留言以及下面的评论');">删除</a>
+									</p>
+									<p>
+										<!-- 一层循环 遍历二层回复 -->
+										<volist name="vo['child']" id='cvo'>
+										<ul >
+											<li>
+												<div class="li_left">
+													<img src="{$cvo.user.userinfo.faceImg}" title="{$cvo.user.username}"
+														class="liheadImg" />
+												</div>
+												<div class="li_right">
+													<p>
+														{$cvo.user.username}&nbsp;&nbsp;{$cvo.create_time|date="Y年m月d日",###} 
+													</p>
+													<p>{$cvo.context}
+													</p>
+												</div>
+											</li>
+										</ul>
+										</volist>
+									</p>
+									<div id="form_{$vo.id}" style="display:none;">
+										<form action="{:U('message/add')}" method="get" >
+											<input type="hidden" name="pid" value="{$vo.id}" />
+											<textarea name="context"></textarea>
+											<input type="submit" value="确定" /> <input type="button"
+												value="取消" />
+										</form>
+									</div>
+								</div></li>
+						</ul>
+						</volist>
+					</div>
+					<div class="cleaner h40"></div>
+					<div>{$page}</div>
+
+
+					<div id="contact_form">
+						<form method="post" name="Contact" action="{:U('message/add')}">
+
+							<div class="col col23 no_margin_right">
+								<h4>留言:</h4>
+								<textarea id="messageTA" name="context" rows="0" cols="0"
+									class="required"></textarea>
+								<div class="cleaner h10"></div>
+								<input type="submit" class="submit_btn left" name="submit"
+									id="submit" value="确定" /> <input type="reset"
+									class="submit_btn submit_right" name="reset" id="reset"
+									value="重置" />
+							</div>
+
+
+						</form>
+					</div>
+					<div class="cleaner h40"></div>
+				</div>
+				<div class="cleaner"></div>
+			</div>
+			<!-- END of main -->
+		</div>
+		<!-- END of main wrapper -->
+
+		<div id="templatemo_footer_wrapper">
+			<div id="templatemo_footer">
+				<div class="footer_left">
+					<a href="#"><img src="__IMG__/1311260370_paypal-straight.png"
+						alt="Paypal" /></a> <a href="#"><img
+						src="__IMG__/1311260374_mastercard-straight.png" alt="Master" /></a>
+					<a href="#"><img src="__IMG__/1311260374_visa-straight.png"
+						alt="Visa" /></a>
+				</div>
+				<div class="footer_right">
+					<p>
+						<a href="index.php">Home</a> | <a href="products.html">Products</a>
+						| <a href="about.html">About</a> | <a href="faqs.html">FAQs</a> |
+						<a href="checkout.html">Checkout</a> | <a href="contact.html">Contact</a>
+					</p>
+					<p>
+						Copyright © 2084 <a href="#">Company Name</a> | Collect from <a
+							href="http://www.cssmoban.com/" title="模板之家">模板之家</a>
+					</p>
+				</div>
+				<div class="cleaner"></div>
+			</div>
+			<!-- END of footer -->
+		</div>
+		<!-- END of footer wrapper -->
+	</div>
+
+</body>
+<script type='text/javascript' src='__JS__/logging.js'></script>
+</html>

@@ -1,0 +1,62 @@
+﻿<link rel="stylesheet" href="__CSS__/common.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #EEF2FB;
+}
+-->
+</style>
+<script>
+  function confirm_check(){
+    var returnVal = window.confirm("添加数据成功\n是否继续添加?", "标题"); 
+    if(returnVal) { 
+      return true;
+    }else{
+      return false;
+    }
+  }
+</script>
+<body>
+          <div id="man_zone" style="width:1000px;">
+            <table width="99%" border="0" align="center"  cellpadding="4" cellspacing="1" class="table_style">
+              <tr>
+                <td width="10%" class="left_title_1" style="text-align:left"><span class="left-title">编号</span></td>
+               <td width="10%" class="left_title_2" style="text-align:left"><span class="">{$data.id}</span></td>
+                <td width="10%" class="left_title_1" style="text-align:left"><span class="left-title">姓名</span></td>
+                <td width="15%" class="left_title_2" style="text-align:left"><span class="left-title">{$data.username}</span></td>
+	            <td width="5%" class="left_title_1" style="text-align:left"><span class="left-title">性别</span></td>
+	            <td width="10%" class="left_title_2" style="text-align:left"><span class="left-title">{$data.userinfo.sex}</span></td>
+	            <td width="15%" class="left_title_1" style="text-align:center" rowspan="5"><img src="{$data.userinfo.faceImg}" title="用户头像"><span class="left-title"></span></td>
+              </tr>
+                <tr>
+                  <td class="left_title_1" style="text-align:left"><span class="left-title">角色</span></td>
+                  <td class="left_title_2" style="text-align:left"><span class="left-title">{$data.role}</span></td>
+                  <td class="left_title_1" style="text-align:left"><span class="left-title">所属班级</span></td>
+                  <td class="left_title_2" style="text-align:left"><span class="left-title">{$data.class.classname}</span></td>
+                  <td class="left_title_1" style="text-align:left"><span class="left-title">qq</span></td>
+                  <td class="left_title_2" style="text-align:left"><span class="left-title">{$data.userinfo.qq}</span></td>
+                </tr>
+                <tr>
+                  <td class="left_title_1" style="text-align:left"><span class="left-title">手机</span></td>
+                  <td class="left_title_2" style="text-align:left"><span class="left-title">{$data.userinfo.telphone}</span></td>
+                  <td class="left_title_1" style="text-align:left"><span class="left-title">邮箱</span></td>
+                  <td class="left_title_2" style="text-align:left"><span class="left-title">{$data.userinfo.email}</span></td>
+                  <td class="left_title_1" style="text-align:left"><span class="left-title">微博</span></td>
+                  <td class="left_title_2" style="text-align:left"><span class="left-title">{$data.userinfo.weibo}</span></td>
+                </tr>
+                <tr>
+                  <td class="left_title_1" style="text-align:left"><span class="left-title">家庭住址</span></td>
+                  <td class="left_title_2" style="text-align:left" colspan="5"><span class="left-title">{$data.userinfo.address}</span></td>
+                </tr>
+                <tr>
+                  <td class="left_title_1" style="text-align:left"><span class="left-title">个性签名</span></td>
+                  <td class="left_title_2" style="text-align:left" colspan="5"><span class="left-title">{$data.userinfo.signature}</span></td>
+                </tr>
+
+          </table>
+</div>
+</body>

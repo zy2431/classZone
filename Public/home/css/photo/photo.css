@@ -1,0 +1,20 @@
+.addPhotoForm{
+	width: 500px;
+	height: auto;
+	overflow:visible;
+	position:relative;
+}
+.addPhotoIframe{
+	width: 380px;
+	height: 300px;
+	background-color: green;
+	overflow:hidden;
+}
+.addPhotoCloseBtn{
+	width: 12px;
+	height: 12px;
+	cursor:pointer;
+	position:absolute;
+	left:630px;
+	background-image:url('../../images/210T941L-44.png');
+}
